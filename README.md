@@ -24,7 +24,7 @@ Simuler et valider le **parcours utilisateur complet** sur l’application web, 
 | **Langage**         | Java 17 |
 | **Automatisation Web** | Selenium WebDriver 4.25 |
 | **Framework BDD**   | Cucumber (Gherkin) |
-| **Test Runner**     | JUnit |
+| **Test Runner**     | JUnit / TestNG |
 | **IDE**             | IntelliJ IDEA |
 | **Build Tool**      | Maven |
 | **Reporting**       | Cucumber Report |
@@ -53,7 +53,7 @@ src/test/java
   ├── features/          # Scénarios Cucumber (.feature)
   ├── stepDefinitions/   # Étapes Gherkin
   ├── pages/             # Page Object Model (POM)
-  ├── runners/           # Fichiers JUnit Runner
+  ├── runners/           # Fichiers JUnit Runner ou/et bien TestNG Runner
 ```
 📌 Architecture POM → facilite la maintenance, la réutilisabilité et l’évolution du projet.
 
