@@ -56,3 +56,70 @@ src/test/java
   ├── runners/           # Fichiers JUnit Runner
 ```
 📌 Architecture POM → facilite la maintenance, la réutilisabilité et l’évolution du projet.
+
+----
+
+## 📈 Résultats & Valeur Ajoutée
+
+✔ Tests automatisés reproductibles
+
+✔ Architecture POM professionnelle
+
+✔ Scénarios BDD clairs et structurés
+
+✔ Gestion complète des parcours utilisateur (login, register, wishlist, panier, adresses)
+
+✔ Génération automatique de rapports
+
+✔ Approche QA alignée avec ISTQB
+
+✔ Développement des compétences en Selenium, Cucumber et Java
+
+------
+
+## 🧠 Bonnes Pratiques Utilisées
+
+✔ Architecture POM (Page Object Model)
+
+✔ Scénarios Given / When / Then (BDD)
+
+✔ Nommage clair des méthodes et variables
+
+✔ Tests indépendants & maintenables
+
+✔ Respect des conventions Maven
+
+✔ Reporting HTML automatisé
+
+✔ Gestion des alertes (confirmation / annulation)
+
+------
+
+## 📊 Reporting
+
+À la fin de l’exécution des tests, les éléments suivants sont générés :
+
+📄 Rapport HTML – Cucumber
+
+🧾 Logs d’exécution
+
+📈 Statistiques de réussite / échec
+
+----
+
+##📌 Instructions pour exécuter les tests
+
+1- Cloner le dépôt :
+```plaintext
+git clone https://github.com/ton-utilisateur/AwesomeQA.git
+cd AwesomeQA
+```
+2- Installer les dépendances Maven :
+```plaintext
+mvn clean install
+```
+3- Exécuter les tests via Maven :
+```plaintext
+mvn test
+```
+4 - Ou via le **Cucumber Runner** dans l’IDE (ex. RunnerTest.java).
