@@ -76,35 +76,37 @@ public class AddNewAdressBookPage {
     }
 
     public void enterFirstName(String firstname) {
-        firstNameInput.clear();
+        wait.until(ExpectedConditions.visibilityOf(firstNameInput)).clear();
         firstNameInput.sendKeys(firstname);
     }
 
     public void enterLastName(String lastname) {
-        lastNameInput.clear();
+        wait.until(ExpectedConditions.visibilityOf(lastNameInput)).clear();
         lastNameInput.sendKeys(lastname);
     }
 
     public void enterAddress1(String address) {
-        address1Input.clear();
+        wait.until(ExpectedConditions.visibilityOf(address1Input)).clear();
         address1Input.sendKeys(address);
     }
 
     public void enterCity(String city) {
-        cityInput.clear();
+        wait.until(ExpectedConditions.visibilityOf(cityInput)).clear();
         cityInput.sendKeys(city);
     }
 
     public void enterPostcode(String postcode) {
-        postcodeInput.clear();
+        wait.until(ExpectedConditions.visibilityOf(postcodeInput)).clear();
         postcodeInput.sendKeys(postcode);
     }
 
     public void selectCountry(String country) {
+        wait.until(ExpectedConditions.visibilityOf(countryDropdown));
         new Select(countryDropdown).selectByVisibleText(country);
     }
 
     public void selectRegion(String region) {
+        wait.until(ExpectedConditions.visibilityOf(regionDropdown));
         new Select(regionDropdown).selectByVisibleText(region);
     }
 

@@ -20,7 +20,7 @@ Feature: Ajouter une nouvelle adresse
     Then je devrais voir "<ResultMessage>"
     Examples:
       | FirstName | LastName | Address1 | City            | Postcode | Country | Region    | DefaultAddress |ResultMessage|
-      | Maha      | Youssef  | Khniss   | Monastir-Khniss | 5011     | Tunisia | Monastir | Yes            | Your address has been successfully added|
+      | John        | Doe  | Khniss   | Monastir-Khniss | 5011     | Tunisia | Monastir | Yes            | Your address has been successfully added|
       | John      | Doe      | Street1  | Tunis           | 1000     | Tunisia | Tunis    | No             |Your address has been successfully added |
 
   @AdresseInvalide
@@ -49,4 +49,4 @@ Feature: Ajouter une nouvelle adresse
       | Maha      | Youssef  |          | Monastir | 5011     | Tunisia | Monastir | Yes            | Address is required                         |
       | Maha      | Youssef  | Khniss   |          | 5011     | Tunisia | Monastir | Yes            | City is required                            |
       | Maha      | Youssef  | Khniss   | Monastir |          | Tunisia | Monastir | Yes            | Postcode is required                        |
-      | Maha      | Youssef  | Khniss   | Monastir | 50A1     | Tunisia | Monastir | Yes            | Postcode must contain only numbers          |
+      | Maha      | Youssef  | Khniss   | Monastir | 50A1     | Tunisia | Monastir | No            | Postcode must contain only numbers          |
