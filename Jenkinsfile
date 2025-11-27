@@ -2,8 +2,8 @@ pipeline {
 	agent any
 
 	tools {
-		maven 'm3'  // Nom configuré dans Jenkins > Global Tool Configuration
-		jdk 'jdk11'  // Optionnel si Maven nécessite Java
+		maven 'm3'
+		jdk 'jdk11'
 	}
 
 	stages {
@@ -21,16 +21,17 @@ pipeline {
 				bat "mvn clean compile -DskipTests"
 			}
 		}
-		stage('Prepare Report Dir') {
+
+		stage('Prepare Report Directory') {
 			steps {
-				bat 'mkdir target\\cucumber'
+				echo "Création dossier Cucumber si inexistant"
+				bat 'mkdir target\\cucumber || echo dossier existe déjà'
 			}
 		}
 
 		stage('Run Tests') {
 			steps {
 				echo "Exécution des tests Cucumber"
-				// Exécution de tous les tests
 				bat "mvn test"
 			}
 		}
@@ -38,7 +39,6 @@ pipeline {
 		stage('Publish Test Results') {
 			steps {
 				echo "Publication des résultats JUnit"
-				// Jenkins détecte les fichiers JUnit XML générés par Maven Surefire
 				junit '**/target/surefire-reports/*.xml'
 			}
 		}
@@ -46,14 +46,15 @@ pipeline {
 		stage('Publish Cucumber Pretty Report') {
 			steps {
 				echo "Publication du rapport HTML Cucumber"
-				publishHTML([allowMissing: false,
+				publishHTML([
+					allowMissing: false,
 					alwaysLinkToLastBuild: true,
 					keepAll: true,
 					reportDir: 'target/cucumber',
 					reportFiles: 'rapport.html',
-					reportName: 'Cucumber Pretty Report'])
+					reportName: 'Cucumber Pretty Report'
+				])
 			}
 		}
 	}
-
 }
