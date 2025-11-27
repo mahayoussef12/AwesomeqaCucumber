@@ -40,14 +40,14 @@ pipeline {
 			steps {
 				script {
 					// Vérification du dossier Allure
-					bat 'echo "Allure results collected from target/allure-results"'
+					bat 'echo "Allure results collected from target/cucumber"'
 				}
 			}
 		}
 
 		stage('Publish Allure Report') {
 			steps {
-				allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
+				allure includeProperties: false, jdk: '', results: [[path: 'target/cucumber']]
 			}
 		}
 	}
