@@ -21,6 +21,11 @@ pipeline {
 				bat "mvn clean compile -DskipTests"
 			}
 		}
+		stage('Prepare Report Dir') {
+			steps {
+				bat 'mkdir target\\cucumber'
+			}
+		}
 
 		stage('Run Tests') {
 			steps {
