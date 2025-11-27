@@ -29,7 +29,7 @@ public class LogoutPage {
     public LogoutPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        this.wait= new WebDriverWait(driver, Duration.ofSeconds(60));
+        this.wait= new WebDriverWait(driver, Duration.ofSeconds(10));
     }
     public void cliquerMonCompte() {
         wait.until(ExpectedConditions.elementToBeClickable(monCompteBtn)).click();
