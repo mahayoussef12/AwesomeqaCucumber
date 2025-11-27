@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class LogoutStep {
@@ -21,13 +22,21 @@ public class LogoutStep {
     @Given("Je suis sur la page")
     public void jeSuisSurLaPage() {
         System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080");
+        driver = new ChromeDriver(options);
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
+
         loginPage = new LoginPage(driver);
         logoutPage= new LogoutPage(driver);
     }
+
 
     @And("Je clique sur compte dans barre de navigation")
     public void jeCliqueSurCompteDansBarreDeNavigation() {
