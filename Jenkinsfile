@@ -1,6 +1,10 @@
 pipeline {
 	agent any
 
+	tools {
+		maven 'm3'   // Nom configuré dans Global Tool Configuration
+	}
+
 	stages {
 
 		stage('Checkout') {
@@ -11,28 +15,13 @@ pipeline {
 
 		stage('Build') {
 			steps {
-				script {
-					// Compilation du projet (adapter selon Maven / Gradle)
-					bat 'mvn clean install -DskipTests'
-				}
+				bat "mvn clean install -DskipTests"
 			}
 		}
 
 		stage('Run Tests') {
 			steps {
-				script {
-					// Exécution des tests (adapter selon votre projet)
-					bat 'mvn test'
-				}
-			}
-		}
-
-		stage('Collect Allure Results') {
-			steps {
-				script {
-					// Vérification du dossier Allure
-					bat 'echo "Allure results collected from target/allure-results"'
-				}
+				bat "mvn test"
 			}
 		}
 
