@@ -36,24 +36,18 @@ pipeline {
 			}
 		}
 
-		stage('Publish Test Results') {
+		stage('Collect Allure Results') {
 			steps {
-				echo "Publication des résultats JUnit"
-				junit '**/target/surefire-reports/*.xml'
+				script {
+					// Vérification du dossier Allure
+					bat 'echo "Allure results collected from target/allure-results"'
+				}
 			}
 		}
 
-		stage('Publish Cucumber Pretty Report') {
+		stage('Publish Allure Report') {
 			steps {
-				echo "Publication du rapport HTML Cucumber"
-				publishHTML([
-					allowMissing: false,
-					alwaysLinkToLastBuild: true,
-					keepAll: true,
-					reportDir: 'target/cucumber',
-					reportFiles: 'rapport.html',
-					reportName: 'Cucumber Pretty Report'
-				])
+				allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
 			}
 		}
 	}
