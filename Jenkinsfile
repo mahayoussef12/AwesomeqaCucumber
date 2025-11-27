@@ -9,46 +9,42 @@ pipeline {
 			}
 		}
 
-		stage('Build Docker Image') {
+		stage('Build') {
 			steps {
 				script {
-					bat 'docker build -t test-framework .'
+					// Compilation du projet (adapter selon Maven / Gradle)
+					bat 'mvn clean install -DskipTests'
 				}
 			}
 		}
 
-		stage('Run Tests in Docker') {
+		stage('Run Tests') {
 			steps {
 				script {
-					// Exécution des tests dans le container
-					bat 'docker run --name automation-tests test-framework || true'
+					// Exécution des tests (adapter selon votre projet)
+					bat 'mvn test'
 				}
 			}
 		}
 
-		stage('Extract Allure Results') {
+		stage('Collect Allure Results') {
 			steps {
 				script {
-					// Copier les résultats hors du container
-					bat 'docker cp automation-tests:/app/target/allure-results ./allure-results || true'
+					// Vérification du dossier Allure
+					bat 'echo "Allure results collected from target/allure-results"'
 				}
 			}
 		}
 
 		stage('Publish Allure Report') {
 			steps {
-				allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+				allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
 			}
 		}
 	}
 
 	post {
 		always {
-			script {
-				// Nettoyage Docker
-				bat 'docker rm -f automation-tests || true'
-				bat 'docker rmi test-framework || true'
-			}
 			cleanWs()
 		}
 	}
