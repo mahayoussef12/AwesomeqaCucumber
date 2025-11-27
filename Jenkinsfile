@@ -17,15 +17,8 @@ pipeline {
 
 		stage('Build') {
 			steps {
-				echo "Build Maven"
+				echo "Compile du projet"
 				bat "mvn clean compile -DskipTests"
-			}
-		}
-
-		stage('Prepare Report Directory') {
-			steps {
-				echo "Création dossier Cucumber si inexistant"
-				bat 'mkdir target\\cucumber || echo dossier existe déjà'
 			}
 		}
 
@@ -36,18 +29,22 @@ pipeline {
 			}
 		}
 
-		stage('Collect Allure Results') {
+		stage('Archive Cucumber HTML Report') {
 			steps {
-				script {
-					// Vérification du dossier Allure
-					bat 'echo "Allure results collected from target/cucumber"'
-				}
+				echo "Archivage du rapport HTML dans Jenkins"
+				archiveArtifacts artifacts: 'target/cucumber-report/**', fingerprint: true
 			}
 		}
 
-		stage('Publish Allure Report') {
+		stage('Publish HTML Report in Jenkins') {
 			steps {
-				allure includeProperties: false, jdk: '', results: [[path: 'target/cucumber']]
+				publishHTML(target: [
+					allowMissing: false,
+					keepAll: true,
+					reportDir: 'target/cucumber-report',
+					reportFiles: 'rapport.html',
+					reportName: 'Cucumber HTML Report'
+				])
 			}
 		}
 	}

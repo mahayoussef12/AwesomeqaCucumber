@@ -5,13 +5,15 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/java/Features/Logout.feature" ,
+@CucumberOptions(
+        features = "src/test/java/Features/Logout.feature",
         glue = "StepDefinitions",
-
-        plugin = {"pretty","html:C:/Users/PCS/Desktop/BootCamp QA Engineering/awesomeqa/target/cucumber/rapport.html"}
+        plugin = {
+                "pretty",
+                "html:target/cucumber-report/rapport.html",
+                "json:target/cucumber-report/cucumber.json"
+        }
 )
-
 public class Runner {
-
 
 }
