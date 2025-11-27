@@ -3,8 +3,6 @@ package StepDefinitions;
 import Pages.InscriptionPage;
 import Pages.LoginPage;
 import Pages.LogoutPage;
-import dev.failsafe.internal.util.Assert;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,6 +10,7 @@ import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class LogoutStep {
     WebDriver driver;
@@ -19,7 +18,13 @@ public class LogoutStep {
     LoginPage loginPage;
     @Given("Je suis sur la page")
     public void jeSuisSurLaPage() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless"); // mode headless
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
         loginPage = new LoginPage(driver);
