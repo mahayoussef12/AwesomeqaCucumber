@@ -12,6 +12,7 @@ import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class LogoutStep {
     WebDriver driver;
@@ -19,7 +20,13 @@ public class LogoutStep {
     LoginPage loginPage;
     @Given("Je suis sur la page")
     public void jeSuisSurLaPage() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--no-sandbox"); // utile pour CI
+        options.addArguments("--disable-dev-shm-usage"); // éviter crash Docker/Jenkins
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
         loginPage = new LoginPage(driver);
