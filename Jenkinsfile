@@ -12,7 +12,7 @@ pipeline {
 		stage('Build Docker Image') {
 			steps {
 				script {
-					sh 'docker build -t test-framework .'
+					bat 'docker build -t test-framework .'
 				}
 			}
 		}
@@ -21,7 +21,7 @@ pipeline {
 			steps {
 				script {
 					// Exécution des tests dans le container
-					sh 'docker run --name automation-tests test-framework || true'
+					bat 'docker run --name automation-tests test-framework || true'
 				}
 			}
 		}
@@ -30,7 +30,7 @@ pipeline {
 			steps {
 				script {
 					// Copier les résultats hors du container
-					sh 'docker cp automation-tests:/app/target/allure-results ./allure-results || true'
+					bat 'docker cp automation-tests:/app/target/allure-results ./allure-results || true'
 				}
 			}
 		}
@@ -46,8 +46,8 @@ pipeline {
 		always {
 			script {
 				// Nettoyage Docker
-				sh 'docker rm -f automation-tests || true'
-				sh 'docker rmi test-framework || true'
+				bat 'docker rm -f automation-tests || true'
+				bat 'docker rmi test-framework || true'
 			}
 			cleanWs()
 		}
