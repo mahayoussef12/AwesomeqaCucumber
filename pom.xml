@@ -57,6 +57,7 @@
                     <includes>
                         <include>**/*Runner.java</include> <!-- Exécute uniquement vos Runner -->
                     </includes>
+
                 </configuration>
             </plugin>
         </plugins>
