@@ -2,7 +2,7 @@ pipeline {
 	agent any
 
 	tools {
-		maven 'm3'   // Nom configuré dans Global Tool Configuration
+		maven 'm3'
 	}
 
 	stages {
@@ -19,15 +19,21 @@ pipeline {
 			}
 		}
 
-		stage('Run Tests') {
+		stage('Run Cucumber JUnit Tests') {
 			steps {
 				bat "mvn test"
 			}
 		}
 
-		stage('Publish Allure Report') {
+		stage('Publish JUnit Results') {
 			steps {
-				allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
+				junit 'target/surefire-reports/*.xml'
+			}
+		}
+
+		stage('Publish Cucumber HTML Report') {
+			steps {
+				archiveArtifacts artifacts: 'target/cucumber/rapport.html', fingerprint: true
 			}
 		}
 	}
