@@ -1,11 +1,16 @@
-FROM maven:3.9.6-eclipse-temurin-17
+FROM maven:3.9.2-eclipse-temurin-11
+
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-driver \
+    unzip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV CHROME_BIN=/usr/bin/chromium
+ENV CHROME_DRIVER=/usr/bin/chromedriver
 
 WORKDIR /app
+COPY . /app
 
-COPY . .
-
-# Build du projet + téléchargement des dépendances
-RUN mvn -B clean install
-
-# Commande par défaut = exécuter les tests
-CMD ["mvn", "test"]
+CMD ["mvn", "clean", "test"]
