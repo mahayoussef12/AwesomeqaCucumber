@@ -78,7 +78,7 @@ pipeline {
 			steps {
 				script {
 					// Construire l'image Docker à partir du Dockerfile du projet
-					sh "docker build -t ${IMAGE_NAME} ."
+					bat "docker build -t ${IMAGE_NAME} ."
 				}
 			}
 		}
@@ -87,7 +87,7 @@ pipeline {
 			steps {
 				script {
 					// Exécuter le conteneur pour lancer les tests
-					sh "docker run --rm ${IMAGE_NAME}"
+					bat "docker run --rm ${IMAGE_NAME}"
 				}
 			}
 		}
