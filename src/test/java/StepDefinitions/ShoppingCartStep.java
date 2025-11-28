@@ -12,23 +12,20 @@ import java.time.Duration;
 
 public class ShoppingCartStep {
 
-    WebDriver driver= null;
+    WebDriver driver;
     LoginPage loginPage;
     ShoppingCartPage shoppingCartPage;
     int compteurAvant;
 
     @Given("Dans Home Page")
     public void dans_home_page() {
-        System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-      //  options.addArguments("--headless=new");
+        options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(options);
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
         loginPage = new LoginPage(driver);

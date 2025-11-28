@@ -16,12 +16,11 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class LogoutStep {
-    WebDriver driver=null;
+    WebDriver driver;
     LogoutPage logoutPage ;
     LoginPage loginPage;
     @Given("Je suis sur la page")
     public void jeSuisSurLaPage() {
-        System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
@@ -29,8 +28,6 @@ public class LogoutStep {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(options);
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
 
         loginPage = new LoginPage(driver);

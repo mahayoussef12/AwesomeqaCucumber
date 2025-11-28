@@ -19,7 +19,6 @@ public class InscriptionStep {
 
     @Given("Je suis sur la page d'accueil")
     public void je_suis_sur_la_page_d_accueil() {
-        System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
@@ -27,8 +26,6 @@ public class InscriptionStep {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(options);
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
         inscriptionPage = new InscriptionPage(driver);

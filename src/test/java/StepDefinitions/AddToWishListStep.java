@@ -21,7 +21,6 @@ public class AddToWishListStep {
 
     @Given("Je suis à home page")
     public void jeSuisSurLaPage() {
-        System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
@@ -29,7 +28,6 @@ public class AddToWishListStep {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(options);
-
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");

@@ -2,8 +2,8 @@ package StepDefinitions;
 
 import Pages.LoginPage;
 import Pages.LogoutPage;
-import io.github.bonigarcia.wdm.WebDriverManager;
-
+import dev.failsafe.internal.util.Assert;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,20 +16,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 
 public class LoginStep {
-    WebDriver driver= null;
+    WebDriver driver;
     LoginPage loginPage;
     LogoutPage logoutPage ;
 
     @Given("Je suis sur la page d'accueil du site")
     public void je_suis_sur_la_page_d_accueil() {
 
-        WebDriverManager.chromedriver().setup();
-
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");                 // ⛔ PAS d'interface graphique
-        options.addArguments("--no-sandbox");               // 🧪 requis pour Jenkins
-        options.addArguments("--disable-dev-shm-usage");    // 🧠 évite les problèmes mémoire
-
+        options.addArguments("--headless=new");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");

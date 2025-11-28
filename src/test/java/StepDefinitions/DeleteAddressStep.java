@@ -20,7 +20,6 @@ public class DeleteAddressStep {
 
     @Given("je suis connecté avec l'email {string} et le mot de passe {string}")
     public void jeSuisConnectéAvecLEmailEtLeMotDePasse(String email, String password) {
-        System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
@@ -28,8 +27,6 @@ public class DeleteAddressStep {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(options);
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
         loginPage = new LoginPage(driver);
