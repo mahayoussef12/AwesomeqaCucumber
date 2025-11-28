@@ -49,7 +49,7 @@ Lien vers le build : ${env.BUILD_URL}
 Cordialement,
 Jenkins
 """,
-					to: 'mayouss30@gmail.com'
+					to: 'youssefmaha299@gmail.com'
 				)
 			}
 		}

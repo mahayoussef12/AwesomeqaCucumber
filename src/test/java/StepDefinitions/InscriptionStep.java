@@ -8,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.time.Duration;
 
 public class InscriptionStep {
 
@@ -16,7 +19,16 @@ public class InscriptionStep {
 
     @Given("Je suis sur la page d'accueil")
     public void je_suis_sur_la_page_d_accueil() {
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
+        driver = new ChromeDriver(options);
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
         inscriptionPage = new InscriptionPage(driver);
