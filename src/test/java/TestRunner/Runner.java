@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
         glue = "StepDefinitions",
         plugin = {
                 "pretty",
-                "html:target/cucumber-report/rapport.html",
                 "json:target/cucumber-report/cucumber.json"
         }
 )

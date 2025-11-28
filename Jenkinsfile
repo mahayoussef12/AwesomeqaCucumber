@@ -36,16 +36,18 @@ pipeline {
 			}
 		}
 
-		stage('Publish HTML Report in Jenkins') {
-			steps {
-				publishHTML(target: [
-					allowMissing: false,
-					keepAll: true,
-					reportDir: 'target/cucumber-report',
-					reportFiles: 'rapport.html',
-					reportName: 'Cucumber HTML Report'
-				])
-			}
+		stage('Generate HTML report') {
+			cucumber buildStatus: 'UNSTABLE',
+			reportTitle: 'My report',
+			fileIncludePattern: '**/*.json',
+			trendsLimit: 10,
+			classifications: [
+				[
+					'key': 'Browser',
+					'value': 'Chrome'
+				]
+			]
 		}
+
 	}
 }
