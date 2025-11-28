@@ -28,14 +28,13 @@ public class LoginPage {
 
     @FindBy(css = ".alert.alert-danger.alert-dismissible")
     WebElement alert;
-
     WebDriver driver;
     WebDriverWait wait;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void cliquerMonCompte() {
