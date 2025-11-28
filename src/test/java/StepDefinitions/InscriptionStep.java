@@ -14,7 +14,7 @@ import java.time.Duration;
 
 public class InscriptionStep {
 
-    WebDriver driver;
+    WebDriver driver= null;
     InscriptionPage inscriptionPage;
 
     @Given("Je suis sur la page d'accueil")

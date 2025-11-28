@@ -14,7 +14,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 
 public class AddNewAdressBookStep {
-    WebDriver driver;
+    WebDriver driver=null;
     AddNewAdressBookPage addressPage = new AddNewAdressBookPage(driver);
     LoginPage loginPage;
     @Given("je suis sur la Home Page")

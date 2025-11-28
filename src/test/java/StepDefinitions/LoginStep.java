@@ -16,7 +16,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 
 public class LoginStep {
-    WebDriver driver;
+    WebDriver driver= null;
     LoginPage loginPage;
     LogoutPage logoutPage ;
 
@@ -24,7 +24,7 @@ public class LoginStep {
     public void je_suis_sur_la_page_d_accueil() {
         System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
+        // options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");

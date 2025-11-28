@@ -13,7 +13,7 @@ import java.time.Duration;
 
 public class AddToWishListStep {
 
-    WebDriver driver;
+    WebDriver driver= null;
     LoginPage loginPage;
     AddToWishListPage addToWishListPage;
     int compteurAvant;

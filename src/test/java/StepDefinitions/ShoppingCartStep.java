@@ -12,7 +12,7 @@ import java.time.Duration;
 
 public class ShoppingCartStep {
 
-    WebDriver driver;
+    WebDriver driver= null;
     LoginPage loginPage;
     ShoppingCartPage shoppingCartPage;
     int compteurAvant;
@@ -21,7 +21,7 @@ public class ShoppingCartStep {
     public void dans_home_page() {
         System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
+      //  options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");

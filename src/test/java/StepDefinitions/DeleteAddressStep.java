@@ -13,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 
 public class DeleteAddressStep {
-    WebDriver driver;
+    WebDriver driver= null;
     DeleteAddressPage addressBookPage;
     LoginPage loginPage;
 
