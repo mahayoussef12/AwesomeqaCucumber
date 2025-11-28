@@ -37,7 +37,6 @@ pipeline {
 			steps {
 				emailext(
 					attachLog: true,
-					attachBuildLog: true,
 					attachmentsPattern: 'target/cucumber-report/rapport.html',
 					subject: "Rapport d'exécution automatique AwesomeQA",
 					body: """
@@ -54,5 +53,6 @@ Jenkins
 				)
 			}
 		}
+
 	}
 }
