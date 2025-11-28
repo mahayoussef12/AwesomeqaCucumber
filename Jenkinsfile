@@ -38,8 +38,7 @@ pipeline {
 			emailext attachLog:
 				true,
 			attachBuildLog: true,
-			attachmentsPattern: 'target/cucumber-report
-					port.html',
+			attachmentsPattern: 'target/cucumber-report/rapport.html',
 			subject: "Rapport d'exécution automatiquAwesomeQA"
 			body: """
 Bonjour,
