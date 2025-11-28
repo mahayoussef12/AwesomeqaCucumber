@@ -35,7 +35,7 @@ pipeline {
 
 		stage('Send Email Report') {
 			steps {
-				emailtext(
+				emailext(
 					attachLog: true,
 					attachmentsPattern: 'target/cucumber-report/rapport.html',
 					subject: "Rapport d'exécution automatique AwesomeQA",
