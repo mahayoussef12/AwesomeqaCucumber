@@ -33,13 +33,21 @@ pipeline {
 			}
 		}
 
-	}
-	stage('Send Email Report') {
-		steps {
-			emailext attachLog: true,
-			attachBuildLog: true,
-			attachmentsPattern: 'target/cucumber-report/rapport.html',
-			subject: "Rapport d'exécution automatique - AwesomeQA",
+
+
+
+
+		stage('Send Email Report') {
+		steps
+				{
+			emailext attachLog:
+				true,
+			attachBuildLog
+				: true,
+			attachmentsPattern: 'target/cucumber-report
+				port.html',
+			subject: "Rapport d'exécution automatiqu
+				AwesomeQA",
 			body: """
 Bonjour,
 
@@ -47,11 +55,14 @@ Votre rapport quotidien d'exécution automatique est prêt.
 
 Lien vers le build : ${env.BUILD_URL}
 
-Cordialement,
-Jenkins
+Cordialemen
+				enkins
 """,
-			to: 'tonemail@gmail.com'
+			to: 'youssefmah
+			9
+		m
+	il.com'
 		}
 	}
 }
-
+}
