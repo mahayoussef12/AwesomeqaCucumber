@@ -28,27 +28,31 @@ pipeline {
 				trendsLimit: 10,
 				classifications: [
 					[ key: 'Browser', value: 'Chrome' ],
-					[ key: 'Env', value: 'Local' ]
+					[ key: 'Env',     value: 'Local'  ]
 				]
 			}
 		}
+
 		stage('Send Email Report') {
-		steps
-				{
-			emailext attachLog: true,
-			attachBuildLog: true,
-			attachmentsPattern: 'target/cucumber-report/rapport.html',
-			subject: "Rapport d'exécution automatiquAwesomeQA",
-			body: """
+			steps {
+				emailext(
+					attachLog: true,
+					attachBuildLog: true,
+					attachmentsPattern: 'target/cucumber-report/rapport.html',
+					subject: "Rapport d'exécution automatique AwesomeQA",
+					body: """
 Bonjour,
 
 Votre rapport quotidien d'exécution automatique est prêt.
 
 Lien vers le build : ${env.BUILD_URL}
 
-Cordialementjenkins""" ,
+Cordialement,
+Jenkins
+""",
 					to: 'youssefmaha299@gmail.com'
+				)
+			}
 		}
 	}
-}
 }
