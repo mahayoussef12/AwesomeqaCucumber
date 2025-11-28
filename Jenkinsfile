@@ -39,7 +39,7 @@ pipeline {
 				true,
 			attachBuildLog: true,
 			attachmentsPattern: 'target/cucumber-report/rapport.html',
-			subject: "Rapport d'exécution automatiquAwesomeQA"
+			subject: "Rapport d'exécution automatiquAwesomeQA",
 			body: """
 Bonjour,
 
@@ -47,7 +47,8 @@ Votre rapport quotidien d'exécution automatique est prêt.
 
 Lien vers le build : ${env.BUILD_URL}
 
-Cordialementjenkins""" to: 'youssefmaha299@gmail.com'
+Cordialementjenkins""" ,
+					to: 'youssefmaha299@gmail.com'
 		}
 	}
 }
