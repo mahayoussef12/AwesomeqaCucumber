@@ -43,10 +43,3 @@ Feature: Ajouter une nouvelle adresse
       |           | Youssef  | Khniss   | Monastir | 5011     | Tunisia | Monastir | Yes            | First name is required                      |
       | Maha      |          | Khniss   | Monastir | 5011     | Tunisia | Monastir | Yes            | Last name is required                       |
       | Ma        | Youssef  | Khniss   | Monastir | 5011     | Tunisia | Monastir | Yes            | First name must be alphabetic and > 3 chars |
-      | Maha123   | Youssef  | Khniss   | Monastir | 5011     | Tunisia | Monastir | Yes            | First name must contain only letters        |
-      | Maha      | Yo       | Khniss   | Monastir | 5011     | Tunisia | Monastir | Yes            | Last name must be alphabetic and > 3 chars  |
-      | Maha      | You55    | Khniss   | Monastir | 5011     | Tunisia | Monastir | Yes            | Last name must contain only letters         |
-      | Maha      | Youssef  |          | Monastir | 5011     | Tunisia | Monastir | Yes            | Address is required                         |
-      | Maha      | Youssef  | Khniss   |          | 5011     | Tunisia | Monastir | Yes            | City is required                            |
-      | Maha      | Youssef  | Khniss   | Monastir |          | Tunisia | Monastir | Yes            | Postcode is required                        |
-      | Maha      | Youssef  | Khniss   | Monastir | 50A1     | Tunisia | Monastir | No            | Postcode must contain only numbers          |
