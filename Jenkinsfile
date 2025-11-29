@@ -24,7 +24,7 @@ pipeline {
 
 				bat """
                 docker run --rm ^
-                  -v "C:\\jenkins\\.m2:/root/.m2" ^
+                  -v "C:\\Users\\jenkins\\.m2:/root/.m2" ^
                   -v "%WORKSPACE%:/app" ^
                   %IMAGE_NAME%
                 """
