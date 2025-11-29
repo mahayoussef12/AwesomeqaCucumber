@@ -22,14 +22,17 @@ public class LoginStep {
 
     @Given("Je suis sur la page d'accueil du site")
     public void je_suis_sur_la_page_d_accueil() {
-
         System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER"));
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--remote-allow-origins=*");
+
         driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
         loginPage = new LoginPage(driver);
