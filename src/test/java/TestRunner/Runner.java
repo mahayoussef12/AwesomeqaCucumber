@@ -12,7 +12,8 @@ import org.junit.runner.RunWith;
                 "pretty",
                 "html:target/cucumber-report/rapport.html",
                 "json:target/cucumber-report/cucumber.json"
-        }
+        },
+        monochrome = true
 )
 public class Runner {
 }
