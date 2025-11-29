@@ -87,7 +87,7 @@ pipeline {
 			steps {
 				script {
 					// Exécuter le conteneur pour lancer les tests
-					bat "docker run --rm ${IMAGE_NAME}"
+					bat "docker run --rm --privileged -v /dev/shm:/dev/shm ${IMAGE_NAME}"
 				}
 			}
 		}
