@@ -14,9 +14,8 @@ pipeline {
 
 		stage('Build Docker Image') {
 			steps {
-				bat """
-                docker build -t %IMAGE_NAME% .
-                """
+				bat "docker build --pull --cache-from=${IMAGE_NAME} -t ${IMAGE_NAME} ."
+
 			}
 		}
 
