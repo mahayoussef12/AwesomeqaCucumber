@@ -57,9 +57,8 @@
                 <version>3.1.2</version>
                 <configuration>
                     <includes>
-                        <include>**/*Runner.java</include> <!-- Exécute uniquement vos Runner -->
+                        <include>**/*Runner.java</include>
                     </includes>
-
                 </configuration>
             </plugin>
         </plugins>

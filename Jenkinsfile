@@ -1,3 +1,64 @@
+/*
+pipeline {
+	agent any
+
+	tools {
+		maven 'm3'
+		jdk 'jdk11'
+	}
+
+	stages {
+
+		stage('Checkout') {
+			steps {
+				checkout scm
+			}
+		}
+
+		stage('Build') {
+			steps {
+				bat "mvn clean test "
+			}
+		}
+
+		stage('Generate HTML report') {
+			steps {
+				cucumber buildStatus: 'UNSTABLE',
+				reportTitle: 'AwesomeQA Report',
+				fileIncludePattern: 'target/cucumber-report*/
+/*.json',
+				trendsLimit: 10,
+				classifications: [
+					[ key: 'Browser', value: 'Chrome' ],
+					[ key: 'Env',     value: 'Local'  ]
+				]
+			}
+		}
+
+		stage('Send Email Report') {
+			steps {
+				emailext(
+					attachLog: true,
+					attachmentsPattern: 'target/cucumber-report/rapport.html',
+					subject: "Rapport d'exécution automatique AwesomeQA",
+					body: """
+Bonjour,
+
+Votre rapport quotidien d'exécution automatique est prêt.
+
+Lien vers le build : ${env.BUILD_URL}
+
+Cordialement,
+Jenkins
+""",
+					to: 'youssefmaha299@gmail.com'
+				)
+			}
+		}
+
+	}
+}
+*/
 pipeline {
 	agent any
 
@@ -6,6 +67,7 @@ pipeline {
 	}
 
 	stages {
+
 		stage('Checkout') {
 			steps {
 				checkout scm
@@ -14,20 +76,19 @@ pipeline {
 
 		stage('Build Docker Image') {
 			steps {
-				bat "docker build --pull --cache-from=${IMAGE_NAME} -t ${IMAGE_NAME} ."
-
+				script {
+					// Construire l'image Docker à partir du Dockerfile du projet
+					bat "docker build -t ${IMAGE_NAME} ."
+				}
 			}
 		}
 
 		stage('Run Tests in Docker') {
 			steps {
-
-				bat """
-                docker run --rm ^
-                  -v "C:\\Users\\jenkins\\.m2:/root/.m2" ^
-                  -v "%WORKSPACE%:/app" ^
-                  %IMAGE_NAME%
-                """
+				script {
+					// Exécuter le conteneur pour lancer les tests
+					bat "docker run --rm ${IMAGE_NAME}"
+				}
 			}
 		}
 
@@ -37,6 +98,7 @@ pipeline {
 					buildStatus: 'UNSTABLE',
 					fileIncludePattern: 'target/cucumber-report/*.json',
 					reportTitle: 'AwesomeQA Chromium Headless Report',
+					trendsLimit: 10,
 					classifications: [
 						[ key: 'Browser', value: 'Chromium Headless' ],
 						[ key: 'Env',     value: 'Docker/Jenkins' ]
@@ -53,7 +115,7 @@ pipeline {
 					subject: "Rapport d'exécution automatique AwesomeQA",
 					body: """Bonjour,
 
-Le rapport d'exécution automatique est prêt.
+Votre rapport quotidien d'exécution automatique est prêt.
 
 Lien vers le build : ${env.BUILD_URL}
 
@@ -62,14 +124,6 @@ Jenkins""",
 					to: 'youssefmaha299@gmail.com'
 				)
 			}
-		}
-	}
-
-	post {
-		always {
-			// Archive les rapports HTML et JSON
-			archiveArtifacts artifacts: 'target/cucumber-report/**', allowEmptyArchive: true
-			junit 'target/surefire-reports/*.xml'
 		}
 	}
 }
