@@ -24,7 +24,7 @@ public class LoginStep {
     WebDriver driver;
     LoginPage loginPage;
     public static final String USERNAME = System.getenv("youssefmaha_1CLco9");
-    public static final String ACCESS_KEY = System.getenv("BROWSERSTACK_ACCESS_KEY");
+    public static final String ACCESS_KEY = System.getenv("ExKy6xekvkN9SCpFLrpe");
     public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@hub-cloud.browserstack.com/wd/hub";
 
 
