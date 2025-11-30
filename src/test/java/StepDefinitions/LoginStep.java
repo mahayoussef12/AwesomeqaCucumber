@@ -33,13 +33,14 @@ public class LoginStep {
 
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("os", "Windows");
-        caps.setCapability("os_version", "10");
-        caps.setCapability("browser", "Chrome");
-        caps.setCapability("browser_version", "80");
-        caps.setCapability("build", "1.0");
-        caps.setCapability("browserstack.debug", "true");
-        caps.setCapability("project", "Browserstack Demo");
-        caps.setCapability("name", "BS Test");
+        caps.setCapability("osVersion", "10");
+        caps.setCapability("browserName", "Chrome");
+        caps.setCapability("browserVersion", "latest");
+        caps.setCapability("project", "Demo");
+        caps.setCapability("build", "Cucumber Build");
+        caps.setCapability("name", "Login Test");
+        caps.setCapability("bstack:options", Map.of("debug", true));
+
         driver = new RemoteWebDriver(new URL(URL), caps);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
