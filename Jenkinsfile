@@ -1,69 +1,14 @@
-/*
 pipeline {
 	agent any
 
 	tools {
-		maven 'm3'
-		jdk 'jdk11'
+		maven 'm3'     // Maven installé sur Jenkins
+		jdk 'jdk11'    // JDK installé sur Jenkins
 	}
-
-	stages {
-
-		stage('Checkout') {
-			steps {
-				checkout scm
-			}
-		}
-
-		stage('Build') {
-			steps {
-				bat "mvn clean test "
-			}
-		}
-
-		stage('Generate HTML report') {
-			steps {
-				cucumber buildStatus: 'UNSTABLE',
-				reportTitle: 'AwesomeQA Report',
-				fileIncludePattern: 'target/cucumber-report*/
-/*.json',
-				trendsLimit: 10,
-				classifications: [
-					[ key: 'Browser', value: 'Chrome' ],
-					[ key: 'Env',     value: 'Local'  ]
-				]
-			}
-		}
-
-		stage('Send Email Report') {
-			steps {
-				emailext(
-					attachLog: true,
-					attachmentsPattern: 'target/cucumber-report/rapport.html',
-					subject: "Rapport d'exécution automatique AwesomeQA",
-					body: """
-Bonjour,
-
-Votre rapport quotidien d'exécution automatique est prêt.
-
-Lien vers le build : ${env.BUILD_URL}
-
-Cordialement,
-Jenkins
-""",
-					to: 'youssefmaha299@gmail.com'
-				)
-			}
-		}
-
-	}
-}
-*/
-pipeline {
-	agent any
 
 	environment {
-		IMAGE_NAME = 'awesomeqa:latest'
+		BROWSERSTACK_USERNAME = credentials('bs-username')
+		BROWSERSTACK_ACCESS_KEY = credentials('bs-accesskey')
 	}
 
 	stages {
@@ -74,38 +19,25 @@ pipeline {
 			}
 		}
 
-		stage('Build Docker Image') {
+		stage('Build & Run Tests') {
 			steps {
-				script {
-					// Construire l'image Docker à partir du Dockerfile du projet
-					bat "docker build -t ${IMAGE_NAME} ."
-				}
-			}
-		}
-
-		stage('Run Tests') {
-			steps {
-				bat """
-                  docker run --rm \
-                  -e BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME} \
-                  -e BROWSERSTACK_ACCESS_KEY=${BROWSERSTACK_ACCESS_KEY} \
-                  selenium-test
-                """
+				// Exécute directement les tests Maven
+				bat "mvn clean test"
 			}
 		}
 
 		stage('Generate HTML Report') {
 			steps {
-				cucumber([
+				cucumber(
 					buildStatus: 'UNSTABLE',
+					reportTitle: 'AwesomeQA Report',
 					fileIncludePattern: 'target/cucumber-report/*.json',
-					reportTitle: 'AwesomeQA Chromium Headless Report',
 					trendsLimit: 10,
 					classifications: [
-						[ key: 'Browser', value: 'Chromium Headless' ],
-						[ key: 'Env',     value: 'Docker/Jenkins' ]
+						[ key: 'Browser', value: 'Chrome' ],
+						[ key: 'Env',     value: 'Local Jenkins' ]
 					]
-				])
+				)
 			}
 		}
 
@@ -127,5 +59,6 @@ Jenkins""",
 				)
 			}
 		}
+
 	}
 }
