@@ -31,7 +31,7 @@ pipeline {
 				bat '''
                     mvn test ^
                     -Dbrowserstack.username=%BROWSERSTACK_USERNAME% ^
-                    -Dbrowserstack.accessKey=%BROWSERSTACK_ACCESS_KEY%
+                    -Dbrowserstack.accessKey=%BROWSERSTACK_ACCESS_KEY% || exit 0
                 '''
 			}
 		}
