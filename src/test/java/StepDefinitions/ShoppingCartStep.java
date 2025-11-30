@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -67,7 +68,7 @@ public class ShoppingCartStep {
     @Then("le message {string} s’affiche")
     public void leMessageSaffiche(String msgAttendu) {
         String message = shoppingCartPage.getAlertMessage();
-        Assertions.assertTrue(message.contains(msgAttendu),
+        Assert.assertTrue(message.contains(msgAttendu),
                 "Message affiché incorrect. Attendu : " + msgAttendu + " | Réel : " + message);
     }
 
@@ -75,7 +76,7 @@ public class ShoppingCartStep {
     public void quantiteProduitAugmente(String delta) {
         int deltaInt = Integer.parseInt(delta);
         int qtApres = shoppingCartPage.getQuantityForProduct("MacBook");
-        Assertions.assertEquals(compteurAvant + deltaInt, qtApres,
+        Assert.assertEquals(compteurAvant + deltaInt, qtApres,
                 "La quantité du produit n'a pas augmenté correctement !");
     }
 }

@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -102,12 +103,12 @@ public class AddToWishListStep {
     @And("L'icône du cœur devient active")
     public void lIcôneDuCœurDevientActive() {
         // exemple pour MacBook, tu peux le rendre dynamique si besoin
-        Assertions.assertTrue(addToWishListPage.iconHeartActive("MacBook"), "L'icône du cœur n'est pas active !");
+        Assert.assertTrue(addToWishListPage.iconHeartActive("MacBook"), "L'icône du cœur n'est pas active !");
     }
     @And("Le compteur ne doit pas augmenter")
     public void leCompteurNeDoitPasAugmenter() {
         int apres = addToWishListPage.getWishlistCounter();
-        Assertions.assertEquals(compteurAvant, apres, "Le compteur a augmenté alors qu'il ne devait pas !");
+        Assert.assertEquals(compteurAvant, apres, "Le compteur a augmenté alors qu'il ne devait pas !");
     }
 
 

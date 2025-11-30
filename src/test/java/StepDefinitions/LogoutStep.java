@@ -7,6 +7,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -99,7 +100,7 @@ public class LogoutStep {
     public void message_succes_s_affiche(String expectedLinkText) {
         String dropdownText = logoutPage.getResult();
          expectedLinkText = "Register";
-        Assertions.assertEquals(expectedLinkText,dropdownText,
+        Assert.assertEquals(expectedLinkText,dropdownText,
                 "Logout échoué : 'Register' non trouvé dans le dropdown");
         driver.quit();
     }

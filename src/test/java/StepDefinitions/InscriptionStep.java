@@ -3,6 +3,7 @@ package StepDefinitions;
 import Pages.InscriptionPage;
 import io.cucumber.java.en.*;
 
+import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -107,7 +108,7 @@ public class InscriptionStep {
             String msgReel = inscriptionPage.getMessageConfirmation().trim();
             System.out.println("Inscription réussie : " + msgReel);
 
-            Assertions.assertEquals(
+            Assert.assertEquals(
                     msgAttendu,
                     msgReel,
                     "Le message de succès ne correspond pas!"
@@ -116,7 +117,7 @@ public class InscriptionStep {
 
             System.out.println("Inscription échouée : message non visible");
 
-            Assertions.assertNotEquals(
+            Assert.assertNotEquals(
                     msgAttendu,
                     "Your Account Has Been Created!",
                     "Ce test attendait un échec mais le message correspond !"

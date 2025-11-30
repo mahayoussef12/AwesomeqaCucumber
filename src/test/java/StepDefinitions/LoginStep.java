@@ -2,12 +2,12 @@ package StepDefinitions;
 
 import Pages.LoginPage;
 import Pages.LogoutPage;
-import dev.failsafe.internal.util.Assert;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -98,14 +98,14 @@ public class LoginStep {
     public void messageSAffiche(String msgAttendu) {
 
         if (msgAttendu.equals("My Account")) {
-            Assertions.assertTrue(
+            Assert.assertTrue(
                     driver.getPageSource().contains("My Account")
 
             );
         }
         else {
             String message = loginPage.getmessageerror();
-            Assertions.assertEquals(
+            Assert.assertEquals(
                     msgAttendu,message);
         }
         driver.quit();
