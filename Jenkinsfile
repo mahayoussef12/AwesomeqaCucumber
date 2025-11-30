@@ -30,7 +30,7 @@ pipeline {
 			steps {
 				echo "Running tests on BrowserStack..."
 				bat '''
-                    mvn clean test ^
+                    mvn -B test ^
                     -Dbrowserstack.username=%BROWSERSTACK_USERNAME% ^
                     -Dbrowserstack.accessKey=%BROWSERSTACK_ACCESS_KEY%
                 '''
