@@ -24,34 +24,35 @@ import java.util.Map;
 public class LoginStep {
     WebDriver driver;
     LoginPage loginPage;
-    public static final String USERNAME = System.getenv("youssefmaha_1CLco9");
-    public static final String ACCESS_KEY = System.getenv("ExKy6xekvkN9SCpFLrpe");
-    public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@hub-cloud.browserstack.com/wd/hub";
+    public static final String USERNAME = "youssefmaha_1CLco9";
+    public static final String ACCESS_KEY = "ExKy6xekvkN9SCpFLrpe";
+    public static final String REMOTE_URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@hub.browserstack.com/wd/hub";
 
 
     @Given("Je suis sur la page d'accueil du site")
-    public void je_suis_sur_la_page_d_accueil() throws MalformedURLException {
-        DesiredCapabilities caps = new DesiredCapabilities();
+    public void je_suis_sur_la_page_d_accueil() throws Exception {
 
+        DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("browserName", "Chrome");
-        caps.setCapability("browserVersion", "80");
+        caps.setCapability("browserVersion", "latest");
 
         HashMap<String, Object> bstackOptions = new HashMap<>();
         bstackOptions.put("os", "Windows");
         bstackOptions.put("osVersion", "10");
-        bstackOptions.put("buildName", "1.0");
-        bstackOptions.put("sessionName", "Login Invalid Test");
-        bstackOptions.put("projectName", "Browserstack Demo");
-        bstackOptions.put("debug", true);
+        bstackOptions.put("projectName", "AwesomeQA");
+        bstackOptions.put("buildName", "Login Tests");
+        bstackOptions.put("sessionName", "Scenario Connexion");
+        bstackOptions.put("debug", true);  // Voir les logs
+        bstackOptions.put("networkLogs", true);
 
         caps.setCapability("bstack:options", bstackOptions);
 
-        driver = new RemoteWebDriver(new URL(URL), caps);
+        driver = new RemoteWebDriver(new URL(REMOTE_URL), caps);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
         loginPage = new LoginPage(driver);
-
     }
 
     @When("Je clique sur compte dans la barre de navigation")
