@@ -7,8 +7,8 @@ pipeline {
 	}
 
 	environment {
-		BROWSERSTACK_USERNAME = credentials('bs-username')
-		BROWSERSTACK_ACCESS_KEY = credentials('bs-accesskey')
+		BROWSERSTACK_USERNAME = credentials('youssefmaha_1CLco9')
+		BROWSERSTACK_ACCESS_KEY = credentials('ExKy6xekvkN9SCpFLrpe')
 	}
 
 	stages {
