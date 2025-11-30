@@ -31,17 +31,22 @@ public class LoginStep {
     @Given("Je suis sur la page d'accueil du site")
     public void je_suis_sur_la_page_d_accueil() throws Exception {
 
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("os", "Windows");
-        caps.setCapability("osVersion", "10");
-        caps.setCapability("browserName", "Chrome");
-        caps.setCapability("browserVersion", "latest");
-        caps.setCapability("project", "Demo");
-        caps.setCapability("build", "Cucumber Build");
-        caps.setCapability("name", "Login Test");
-        caps.setCapability("bstack:options", Map.of("debug", true));
+        // options spécifiques BrowserStack
+        Map<String, Object> bstackOptions = new HashMap<>();
+        bstackOptions.put("os", "Windows");
+        bstackOptions.put("osVersion", "11");
+        bstackOptions.put("projectName", "Demo Project");
+        bstackOptions.put("buildName", "Cucumber Build");
+        bstackOptions.put("sessionName", "Login Test");
+        bstackOptions.put("debug", true);
 
-        driver = new RemoteWebDriver(new URL(URL), caps);
+        // capabilities W3C
+        Map<String, Object> caps = new HashMap<>();
+        caps.put("browserName", "Chrome");
+        caps.put("browserVersion", "latest");
+        caps.put("bstack:options", bstackOptions);
+
+        driver = new RemoteWebDriver(new URL(URL), new org.openqa.selenium.remote.DesiredCapabilities(caps));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
 
