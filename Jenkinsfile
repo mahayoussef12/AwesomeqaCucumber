@@ -2,9 +2,11 @@ pipeline {
 	agent any
 
 	environment {
-		BROWSERSTACK_USERNAME = credentials('BROWSERSTACK_USERNAME')
-		BROWSERSTACK_ACCESS_KEY = credentials('BROWSERSTACK_ACCESS_KEY')
+		BROWSERSTACK_CREDENTIALS = credentials('BROWSERSTACK_CREDENTIALS')
+		BROWSERSTACK_USERNAME = "${BROWSERSTACK_CREDENTIALS_USR}"
+		BROWSERSTACK_ACCESS_KEY = "${BROWSERSTACK_CREDENTIALS_PSW}"
 	}
+
 
 	tools {
 		maven 'm3'
@@ -12,17 +14,29 @@ pipeline {
 	}
 
 	stages {
+
 		stage('Checkout') {
 			steps {
 				checkout scm
 			}
 		}
-
-		stage('Run Tests (BrowserStack)') {
+		stage('Build') {
 			steps {
-				bat 'mvn test'
+				bat 'mvn -B compile'
 			}
 		}
+
+		stage('Run Tests on BrowserStack') {
+			steps {
+				echo "Running tests on BrowserStack..."
+				bat '''
+                    mvn clean test ^
+                    -Dbrowserstack.username=%BROWSERSTACK_USERNAME% ^
+                    -Dbrowserstack.accessKey=%BROWSERSTACK_ACCESS_KEY%
+                '''
+			}
+		}
+
 
 		stage('Generate Report') {
 			steps {

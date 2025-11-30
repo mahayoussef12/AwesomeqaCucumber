@@ -24,30 +24,23 @@ import java.util.Map;
 public class LoginStep {
     WebDriver driver;
     LoginPage loginPage;
-    public static final String USERNAME = "youssefmaha_1CLco9";
-    public static final String ACCESS_KEY = "ExKy6xekvkN9SCpFLrpe";
-    public static final String REMOTE_URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@hub.browserstack.com/wd/hub";
-
+    String username = System.getenv("BROWSERSTACK_USERNAME");
+    String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
+    String URL = "https://" + username + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub";
 
     @Given("Je suis sur la page d'accueil du site")
     public void je_suis_sur_la_page_d_accueil() throws Exception {
 
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("browserName", "Chrome");
-        caps.setCapability("browserVersion", "latest");
-
-        HashMap<String, Object> bstackOptions = new HashMap<>();
-        bstackOptions.put("os", "Windows");
-        bstackOptions.put("osVersion", "10");
-        bstackOptions.put("projectName", "AwesomeQA");
-        bstackOptions.put("buildName", "Login Tests");
-        bstackOptions.put("sessionName", "Scenario Connexion");
-        bstackOptions.put("debug", true);  // Voir les logs
-        bstackOptions.put("networkLogs", true);
-
-        caps.setCapability("bstack:options", bstackOptions);
-
-        driver = new RemoteWebDriver(new URL(REMOTE_URL), caps);
+        caps.setCapability("os", "Windows");
+        caps.setCapability("os_version", "10");
+        caps.setCapability("browser", "Chrome");
+        caps.setCapability("browser_version", "80");
+        caps.setCapability("build", "1.0");
+        caps.setCapability("browserstack.debug", "true");
+        caps.setCapability("project", "Browserstack Demo");
+        caps.setCapability("name", "BS Test");
+        driver = new RemoteWebDriver(new URL(URL), caps);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
 
