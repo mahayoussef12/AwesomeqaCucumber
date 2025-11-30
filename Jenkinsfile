@@ -1,4 +1,3 @@
-/*
 pipeline {
 	agent any
 
@@ -42,8 +41,7 @@ pipeline {
 			steps {
 				cucumber(
 					reportTitle: 'AwesomeQA Report',
-					fileIncludePattern: 'target/cucumber-report*/
-/*.json',
+					fileIncludePattern: 'target/cucumber-report/*.json',
 					trendsLimit: 10,
 					classifications: [
 						[ key: 'Browser', value: 'Chrome' ],
@@ -72,104 +70,5 @@ Jenkins""",
 			}
 		}
 
-	}
-}
-*/
-pipeline {
-	agent any
-
-	tools {
-		maven 'm3'
-		jdk 'jdk11'
-	}
-
-	environment {
-		// Récupérer le chemin du ChromeDriver depuis Jenkins credentials
-		CHROMEDRIVER_PATH = credentials('CHROMEDRIVER_PATH')
-	}
-
-	stages {
-		stage('Checkout') {
-			steps { checkout scm }
-		}
-
-		stage('Build') {
-			steps { bat 'mvn -B compile' }
-		}
-
-		stage('Run Tests Locally') {
-			steps {
-				echo "Running tests locally on Chrome..."
-				// Set ChromeDriver path pour Selenium
-				bat """
-                set PATH=%CHROMEDRIVER_PATH%;%PATH%
-                mvn -B test
-                """
-			}
-		}
-
-		stage('Generate HTML Report') {
-			steps {
-				cucumber(
-					buildStatus: 'UNSTABLE',
-					reportTitle: 'AwesomeQA Report',
-					fileIncludePattern: 'target/cucumber-report/*.json',
-					trendsLimit: 10,
-					classifications: [
-						[ key: 'Browser', value: 'Chrome' ],
-						[ key: 'Env',     value: 'Local Jenkins' ]
-					]
-				)
-			}
-		}
-	}
-}
-pipeline {
-	agent any
-
-	tools {
-		maven 'm3'
-		jdk 'jdk11'
-	}
-
-	environment {
-		// Récupérer le chemin du ChromeDriver depuis Jenkins credentials
-		CHROMEDRIVER_PATH = credentials('CHROMEDRIVER_PATH')
-	}
-
-	stages {
-		stage('Checkout') {
-			steps { checkout scm }
-		}
-
-		stage('Build') {
-			steps { bat 'mvn -B compile' }
-		}
-
-		stage('Run Tests Locally') {
-			steps {
-				echo "Running tests locally on Chrome..."
-				// Set ChromeDriver path pour Selenium
-				bat """
-                set PATH=%CHROMEDRIVER_PATH%;%PATH%
-                mvn -B test
-                """
-			}
-		}
-
-		stage('Generate HTML Report') {
-			steps {
-				cucumber(
-					buildStatus: 'UNSTABLE',
-					reportTitle: 'AwesomeQA Report',
-					fileIncludePattern: 'target/cucumber-report/*.json',
-					trendsLimit: 10,
-					classifications: [
-						[ key: 'Browser', value: 'Chrome' ],
-						[ key: 'Env',     value: 'Local Jenkins' ]
-					]
-				)
-			}
-		}
 	}
 }

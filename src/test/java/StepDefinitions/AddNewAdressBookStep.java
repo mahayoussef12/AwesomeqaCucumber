@@ -20,16 +20,29 @@ import java.util.Map;
 
 public class AddNewAdressBookStep {
     WebDriver driver=null;
-    AddNewAdressBookPage addressPage ;
+    AddNewAdressBookPage addressPage;
     LoginPage loginPage;
-
+    String username = System.getenv("BROWSERSTACK_USERNAME");
+    String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
+    String URL = "https://" + username + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub";
     @Given("je suis sur la Home Page")
     public void jeSuisSurLaHomePage() throws MalformedURLException {
-        String chromeDriverPath = System.getenv("CHROMEDRIVER_PATH");
-        System.setProperty("webdriver.chrome.driver", chromeDriverPath);
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        // options spécifiques BrowserStack
+        Map<String, Object> bstackOptions = new HashMap<>();
+        bstackOptions.put("os", "Windows");
+        bstackOptions.put("osVersion", "11");
+        bstackOptions.put("projectName", "Demo Project");
+        bstackOptions.put("buildName", "Cucumber Build");
+        bstackOptions.put("sessionName", "Login Test");
+        bstackOptions.put("debug", true);
 
+        // capabilities W3C
+        Map<String, Object> caps = new HashMap<>();
+        caps.put("browserName", "Chrome");
+        caps.put("browserVersion", "latest");
+        caps.put("bstack:options", bstackOptions);
+
+        driver = new RemoteWebDriver(new URL(URL), new org.openqa.selenium.remote.DesiredCapabilities(caps));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
