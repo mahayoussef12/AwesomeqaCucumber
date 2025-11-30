@@ -21,7 +21,7 @@ pipeline {
 		}
 		stage('Build') {
 			steps {
-				bat 'mvn -B compile'
+				bat 'mvn compile'
 			}
 		}
 
@@ -29,7 +29,7 @@ pipeline {
 			steps {
 				echo "Running tests on BrowserStack..."
 				bat '''
-                    mvn -B test ^
+                    mvn test ^
                     -Dbrowserstack.username=%BROWSERSTACK_USERNAME% ^
                     -Dbrowserstack.accessKey=%BROWSERSTACK_ACCESS_KEY%
                 '''
