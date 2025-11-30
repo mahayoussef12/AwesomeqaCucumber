@@ -8,8 +8,13 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddToWishListStep {
 
@@ -17,17 +22,28 @@ public class AddToWishListStep {
     LoginPage loginPage;
     AddToWishListPage addToWishListPage;
     int compteurAvant;
-
+    String username = System.getenv("BROWSERSTACK_USERNAME");
+    String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
+    String URL = "https://" + username + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub";
 
     @Given("Je suis à home page")
-    public void jeSuisSurLaPage() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--window-size=1920,1080");
-        driver = new ChromeDriver(options);
+    public void jeSuisSurLaPage() throws MalformedURLException {        // options spécifiques BrowserStack
+        Map<String, Object> bstackOptions = new HashMap<>();
+        bstackOptions.put("os", "Windows");
+        bstackOptions.put("osVersion", "11");
+        bstackOptions.put("projectName", "Demo Project");
+        bstackOptions.put("buildName", "Cucumber Build");
+        bstackOptions.put("sessionName", "Login Test");
+        bstackOptions.put("debug", true);
+
+        // capabilities W3C
+        Map<String, Object> caps = new HashMap<>();
+        caps.put("browserName", "Chrome");
+        caps.put("browserVersion", "latest");
+        caps.put("bstack:options", bstackOptions);
+
+        driver = new RemoteWebDriver(new URL(URL), new org.openqa.selenium.remote.DesiredCapabilities(caps));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
