@@ -1,12 +1,16 @@
 pipeline {
 	agent any
 
+	tools {
+		maven 'm3'     // Maven installé sur Jenkins
+		jdk 'jdk11'    // JDK installé sur Jenkins
+	}
+
 	environment {
 		BROWSERSTACK_CREDENTIALS = credentials('BROWSERSTACK_CREDENTIALS')
 		BROWSERSTACK_USERNAME = "${BROWSERSTACK_CREDENTIALS_USR}"
 		BROWSERSTACK_ACCESS_KEY = "${BROWSERSTACK_CREDENTIALS_PSW}"
 	}
-
 
 	stages {
 
