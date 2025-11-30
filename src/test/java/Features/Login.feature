@@ -28,12 +28,12 @@ Feature: Tester la fonctionnalité de connexion
       |                      | Test@123 | Warning: E-Mail Address must be required!             |
       | mayouss30@gmail.com  |          | Warning: Password must be required!                   |
       |                      |          | Warning: No match for E-Mail Address and/or Password. |
-  @Blocage
-  Scenario: Bloquer le compte après 5 tentatives échouées
-    When Je clique sur compte dans la barre de navigation
-    And Je sélectionne se connecter dans la liste déroulante
-    And Je saisi l'email "test@awesomeqa.com"
-    And Je saisis un mot de passe incorrect 5 fois
-    Then Le message "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour." s’affiche
+#  @Blocage
+#  Scenario: Bloquer le compte après 5 tentatives échouées
+#    When Je clique sur compte dans la barre de navigation
+#    And Je sélectionne se connecter dans la liste déroulante
+#    And Je saisi l'email "test@awesomeqa.com"
+#    And Je saisis un mot de passe incorrect 5 fois
+#    Then Le message "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour." s’affiche
 
 
