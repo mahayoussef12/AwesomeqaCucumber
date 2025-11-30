@@ -40,7 +40,6 @@ pipeline {
 		stage('Generate HTML Report') {
 			steps {
 				cucumber(
-					buildStatus: 'UNSTABLE',
 					reportTitle: 'AwesomeQA Report',
 					fileIncludePattern: 'target/cucumber-report/*.json',
 					trendsLimit: 10,
