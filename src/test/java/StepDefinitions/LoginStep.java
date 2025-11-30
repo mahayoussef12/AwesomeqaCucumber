@@ -12,27 +12,35 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
+import java.util.Map;
 
 public class LoginStep {
     WebDriver driver;
     LoginPage loginPage;
-    LogoutPage logoutPage ;
+    public static final String USERNAME = System.getenv("youssefmaha_1CLco9");
+    public static final String ACCESS_KEY = System.getenv("BROWSERSTACK_ACCESS_KEY");
+    public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@hub-cloud.browserstack.com/wd/hub";
+
 
     @Given("Je suis sur la page d'accueil du site")
-    public void je_suis_sur_la_page_d_accueil() {
-        System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER"));
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
-        options.addArguments("--remote-allow-origins=*");
-
-        driver = new ChromeDriver(options);
+    public void je_suis_sur_la_page_d_accueil() throws MalformedURLException {
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setCapability("os", "Windows");
+        caps.setCapability("os_version", "10");
+        caps.setCapability("browser", "Chrome");
+        caps.setCapability("browser_version", "80");
+        caps.setCapability("build", "1.0");
+        caps.setCapability("browserstack.debug", "true");
+        caps.setCapability("project", "Browserstack Demo");
+        caps.setCapability("name", "BS Test");
+        driver = new RemoteWebDriver(new URL(URL), caps);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
         driver.manage().window().maximize();
         driver.get("https://awesomeqa.com/ui/index.php?route=common/home");
         loginPage = new LoginPage(driver);

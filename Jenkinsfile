@@ -64,6 +64,8 @@ pipeline {
 
 	environment {
 		IMAGE_NAME = 'awesomeqa:latest'
+		BROWSERSTACK_USERNAME = credentials('youssefmaha_1CLco9')
+		BROWSERSTACK_ACCESS_KEY = credentials('ExKy6xekvkN9SCpFLrpe')
 	}
 
 	stages {
@@ -83,12 +85,14 @@ pipeline {
 			}
 		}
 
-		stage('Run Tests in Docker') {
+		stage('Run Tests') {
 			steps {
-				script {
-					// Exécuter le conteneur pour lancer les tests
-					bat "docker run --rm --privileged -v /dev/shm:/dev/shm ${IMAGE_NAME}"
-				}
+				bat """
+                  docker run --rm \
+                  -e BROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME} \
+                  -e BROWSERSTACK_ACCESS_KEY=${BROWSERSTACK_ACCESS_KEY} \
+                  selenium-test
+                """
 			}
 		}
 
