@@ -64,8 +64,6 @@ pipeline {
 
 	environment {
 		IMAGE_NAME = 'awesomeqa:latest'
-		BROWSERSTACK_USERNAME = credentials('youssefmaha_1CLco9')
-		BROWSERSTACK_ACCESS_KEY = credentials('ExKy6xekvkN9SCpFLrpe')
 	}
 
 	stages {
