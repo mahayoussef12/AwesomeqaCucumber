@@ -18,6 +18,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.Map;
 
 public class LoginStep {
@@ -31,14 +32,20 @@ public class LoginStep {
     @Given("Je suis sur la page d'accueil du site")
     public void je_suis_sur_la_page_d_accueil() throws MalformedURLException {
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("os", "Windows");
-        caps.setCapability("os_version", "10");
-        caps.setCapability("browser", "Chrome");
-        caps.setCapability("browser_version", "80");
-        caps.setCapability("build", "1.0");
-        caps.setCapability("browserstack.debug", "true");
-        caps.setCapability("project", "Browserstack Demo");
-        caps.setCapability("name", "BS Test");
+
+        caps.setCapability("browserName", "Chrome");
+        caps.setCapability("browserVersion", "80");
+
+        HashMap<String, Object> bstackOptions = new HashMap<>();
+        bstackOptions.put("os", "Windows");
+        bstackOptions.put("osVersion", "10");
+        bstackOptions.put("buildName", "1.0");
+        bstackOptions.put("sessionName", "Login Invalid Test");
+        bstackOptions.put("projectName", "Browserstack Demo");
+        bstackOptions.put("debug", true);
+
+        caps.setCapability("bstack:options", bstackOptions);
+
         driver = new RemoteWebDriver(new URL(URL), caps);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
